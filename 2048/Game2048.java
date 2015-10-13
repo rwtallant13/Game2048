@@ -57,7 +57,9 @@ public class Game2048 {
 		/*
 		 * 
 		 * Ai Shit not 100% functional yet
-		 * 
+		 *  
+		 * For some reason when h is pressed the origional Move mM is changed and returned
+		 *
 		 	if(m.equals("h")){
 			System.out.println("How deep fam? ");
 			int d = scn.nextInt();
