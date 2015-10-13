@@ -16,7 +16,7 @@ public class Game2048 {
 
 		//welcome message
 		while(inp != 1){
-			System.out.println("2408 Game");
+			System.out.println("2048 Game");
 			System.out.println("---------");
 			System.out.println("1 To start!");
 			System.out.println("2. Help.");
