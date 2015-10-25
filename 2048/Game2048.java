@@ -1,6 +1,8 @@
 import java.util.*;
 import java.util.Random;
 
+//Written By: Wesley Romary
+
 public class Game2048 {
 	public Game2048(){
 		
