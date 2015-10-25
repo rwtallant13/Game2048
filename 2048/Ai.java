@@ -86,20 +86,24 @@ public class Ai{
 		Game2048 game = new Game2048();
 		String moves = "";
 		int l,r,u,d,nMax,nMin;
-		Move mL = new Move(m);
-		Move mR = new Move(m);
-		Move mU = new Move(m);
-		Move mD = new Move(m); 
+		l=r=u=d=nMax=nMin=0;
+		Move mL = new Move(m.clone());
+		Move mR = new Move(m.clone());
+		Move mU = new Move(m.clone());
+		Move mD = new Move(m.clone());
 		String max;
 		String min;
+
+		//Using minmax algorithm
 		for(int i =0;i<depth;i++){
-			//max
-			if(i%2!=0){
+			//Searching for maximum values when "turn" is even
+			if(i%2==0){
+				//testing each move
 				nMax = 0;
-				mL.moveLeft(m.getBoard(), m.getScore());
+				mL.moveLeft();
 				l = getHuristicScore(mL);
 				
-				mR.moveRight(m.getBoard(), m.getScore());
+				mR.moveRight();
 				r = getHuristicScore(mR);
 				if(r>l){
 					max = "Right ";
@@ -109,14 +113,14 @@ public class Ai{
 					nMax = l;
 				}
 				
-				mU.moveUp(m.getBoard(), m.getScore());
+				mU.moveUp();
 				u = getHuristicScore(mU);
 				if(u>nMax){
 					max = "Up ";
 					nMax = r;
 				}
 				
-				mD.moveDown(m.getBoard(), m.getScore());
+				mD.moveDown();
 				d = getHuristicScore(mD);
 				if(d>nMax){
 					max = "Down ";
@@ -124,12 +128,13 @@ public class Ai{
 				}
 				moves += max;
 			}
-			if(i%2==0){
+			if(i%2!=0){
+				//Finding min values when turn is odd
 				nMin = 0;
-				mL.moveLeft(m.getBoard(), m.getScore());
+				mL.moveLeft();
 				l = getHuristicScore(mL);
 				
-				mR.moveRight(m.getBoard(), m.getScore());
+				mR.moveRight();
 				r = getHuristicScore(mR);
 				if(r<l){
 					min = "Right ";
@@ -139,14 +144,14 @@ public class Ai{
 					nMin = l;
 				}
 				
-				mU.moveUp(m.getBoard(), m.getScore());
+				mU.moveUp();
 				u = getHuristicScore(mU);
 				if(u<nMin){
 					min = "Up ";
 					nMin = r;
 				}
 				
-				mD.moveDown(m.getBoard(), m.getScore());
+				mD.moveDown();
 				d = getHuristicScore(mD);
 				if(d<nMin){
 					min = "Down ";
@@ -154,7 +159,27 @@ public class Ai{
 				}
 				moves += min;
 			}
-			game.drawBoard(m);
+
+
+			//resets boards so the 'winning' move is the new board that is tested
+			if(u == nMin || u == nMax){
+				mD = new Move(mU.clone());
+				mL = new Move(mU.clone());
+				mR = new  Move(mU.clone());
+			}if(d == nMin || d == nMax){
+				mU = new Move(mD.clone());
+				mL = new Move(mD.clone());
+				mR = new  Move(mD.clone());
+			}if(l == nMin || l == nMax){
+				mD = new Move(mL.clone());
+				mU = new Move(mL.clone());
+				mR = new  Move(mL.clone());
+			}if(r == nMin || r == nMax){
+				mD = new Move(mR.clone());
+				mL = new Move(mR.clone());
+				mU = new  Move(mR.clone());
+			}
+			game.drawBoard(mD);
 		}
 		return moves;
 	}

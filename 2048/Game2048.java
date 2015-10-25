@@ -4,8 +4,9 @@ import java.util.Random;
 //Written By: Wesley Romary
 
 public class Game2048 {
+	public static int gos = 1;
 	public Game2048(){
-		
+
 	}
 	public static void main(String[] args){
 		Scanner scn = new Scanner(System.in);
@@ -44,37 +45,37 @@ public class Game2048 {
 	}
 	public static Move move(Move mM, String m){ //Sends move keys to move class
 		Scanner scn = new Scanner(System.in);
-		if(m.equals("w")){ 
-			mM.moveUp(mM.getBoard(), mM.getScore());
+		Ai ai = new Ai();
+		if(m.equals("w")){
+			mM.moveUp();
+			gos++;
 		}
-		if(m.equals("s")){ 
-			mM.moveDown(mM.getBoard(), mM.getScore());
+		if(m.equals("s")){
+			mM.moveDown();
+			gos++;
 		}
 		if(m.equals("a")){
-			mM.moveLeft(mM.getBoard(), mM.getScore());
+			mM.moveLeft();
+			gos++;
 		}
-		if(m.equals("d")){
-			mM.moveRight(mM.getBoard(), mM.getScore());
+		if(m.equals("d")) {
+			mM.moveRight();
+			gos++;
 		}
-		/*
-		 * 
-		 * Ai Shit not 100% functional yet
-		 *  
-		 * For some reason when h is pressed the origional Move mM is changed and returned
-		 *
 		 	if(m.equals("h")){
 			System.out.println("How deep fam? ");
 			int d = scn.nextInt();
-			Ai ai = new Ai();
 			System.out.println(ai.calculate(mM, d));
-			System.out.println("Clustering Score: "+ai.calculateClusteringScore(mM));
-			System.out.println("Empty Cells: "+ ai.calculateEmptyCells(mM));
-			System.out.println("Huristic Score: "+ ai.getHuristicScore(mM));
 			
-		}*/
+		}
 		if(m.equals("q")){
 			final int end = 1;
 		}
+		System.out.println("Turns: "+gos);
+
+		System.out.println("Clustering Score: "+ai.calculateClusteringScore(mM));
+		System.out.println("Empty Cells: "+ ai.calculateEmptyCells(mM));
+		System.out.println("Huristic Score: "+ ai.getHuristicScore(mM));
 		return mM;
 	}
 	public static void drawBoard(Move m){ //draws board

@@ -25,26 +25,59 @@ public class Move {
 		b[x][y]=2;
 		b[x1][y1]=2;
 	}
+	public Move(int[][] board, int score){
+		b = board;
+		if(score > 0){
+			s = score;
+		}else s = 0;
+	}
 	
-	/*public Move(){
-		b[0][0]=8;
-		b[0][1]=4;
-		b[0][2]=2;
-		b[0][3]=2;
+	/*
+	*
+	*
+	* Testing constructor
+	*
+	*
+	public Move(){
 
-		b[2][0]=2;
-		b[2][1]=2;
-		b[2][3]=2;
+		//b[x][y]
 
-		b[3][0]=2;
-		b[3][1]=2;
-		b[3][2]=2;
+		b[0][0] = 2;
+		b[1][0] = 2;
+		b[2][0] = 0;
+		b[3][0] = 0;
+
+		b[0][1] = 0;
+		b[1][1] = 0;
+		b[2][1] = 0;
+		b[3][1] = 0;
+
+		b[0][2] = 0;
+		b[1][2] = 0;
+		b[2][2] = 0;
+		b[3][2] = 0;
+
+		b[0][3] = 0;
+		b[1][3] = 0;
+		b[2][3] = 0;
+		b[3][3] = 0;
 	}*/
 	public int[][] getBoard(){
 		return b;
 	}
 	public int getScore(){
 		return s;
+	}
+	public Move clone(){
+		int sS = s;
+		int[][] n = new int[4][4];
+		for(int i = 0; i< b.length; i++){
+			for (int j = 0; j < b[i].length; j++){
+				n[i][j] = b[i][j];
+			}
+		}
+
+		return new Move(n, sS);
 	}
 	public static int[][] spawn(int[][] b){ //spawns 2 or 4 in a random block
 		Random rand = new Random();
@@ -63,7 +96,7 @@ public class Move {
 
 		return b;
 	}
-	public void moveUp(int[][] b, int s){ 
+	public void moveUp(){
 		int c;
 		for(int y = 0; y < 3; y++){
 			for(int x = 0; x < 4; x++){
@@ -88,7 +121,7 @@ public class Move {
 		}
 		spawn(b);
 	}
-	public void moveDown(int[][] b, int s){ //this dont work yet
+	public void moveDown(){ //this dont work yet
 		int c;
 		for(int y = 3; y > 0; y--){
 			for(int x = 0; x < 4; x++){
@@ -113,7 +146,7 @@ public class Move {
 		}
 		spawn(b);
 	}
-	public void moveLeft(int[][] b, int s){ 
+	public void moveLeft(){
 		int c;
 		for(int y = 0; y < 4;y++){
 			for(int x = 0; x < 3;x++){
@@ -138,7 +171,7 @@ public class Move {
 		}
 		spawn(b);
 	}
-	public void moveRight(int[][] b, int s){
+	public void moveRight(){
 		int c;
 		for(int y = 0; y < 4;y++){
 			for(int x = 3; x > 0;x--){
