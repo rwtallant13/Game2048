@@ -68,6 +68,10 @@ public class Game2048 {
 			System.out.println(ai.calculate(mM, d));
 			
 		}
+		if(m.equals("win")){
+
+			ai.win(mM);
+		}
 		if(m.equals("q")){
 			final int end = 1;
 		}

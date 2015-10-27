@@ -1,22 +1,12 @@
-import java.util.*;
+
 
 public class Ai{
-	private String status;
-	private int depth = 7;
-	private Move m;
-	private String move;
-	private int emptyCells;
-	
 
 	public Ai(){
 
 	}
-	public String getMove(){
-		return move;
-	}
-	public static String hint(Move m){
-		return "";
-	}
+
+
 	private static int huristicScore(Move m, int eC, int cS){
 		int aS = m.getScore();
 
@@ -71,12 +61,12 @@ public class Ai{
 									nNum++;
 									sum+=Math.abs(b[x1][y1]-b[x][y]);
 								}
-							}else continue;
+							}
 						}
 					}
 					if(nNum>0){
 						clusteringScore+=sum/nNum;
-					}else continue;
+					}
 				}
 			}
 		}
@@ -99,7 +89,7 @@ public class Ai{
 			//Searching for maximum values when "turn" is even
 			if(i%2==0){
 				//testing each move
-				nMax = 0;
+
 				mL.moveLeft();
 				l = getHuristicScore(mL);
 				
@@ -130,7 +120,7 @@ public class Ai{
 			}
 			if(i%2!=0){
 				//Finding min values when turn is odd
-				nMin = 0;
+
 				mL.moveLeft();
 				l = getHuristicScore(mL);
 				
@@ -182,5 +172,105 @@ public class Ai{
 			game.drawBoard(mD);
 		}
 		return moves;
+	}
+	public Move win(Move m){
+		System.out.println("May the Sheen be with you...");
+		int i = 0;
+		Game2048 game = new Game2048();
+		String moves = "";
+		int l,r,u,d,nMax,nMin;
+		l=r=u=d=nMax=nMin=0;
+
+		String max;
+		String min;
+
+		//Using minmax algorithm
+		while(!m.isWon()){
+
+			Move mL = new Move(m.clone());
+			Move mR = new Move(m.clone());
+			Move mU = new Move(m.clone());
+			Move mD = new Move(m.clone());
+
+			//Searching for maximum values when "turn" is even
+			if(i%2==0){
+				//testing each move
+
+				mL.moveLeft();
+				l = getHuristicScore(mL);
+
+				mR.moveRight();
+				r = getHuristicScore(mR);
+				if(r>l){
+					max = "Right ";
+					nMax = r;
+				}else{
+					max = "Left ";
+					nMax = l;
+				}
+
+				mU.moveUp();
+				u = getHuristicScore(mU);
+				if(u>nMax){
+					max = "Up ";
+					nMax = r;
+				}
+
+				mD.moveDown();
+				d = getHuristicScore(mD);
+				if(d>nMax){
+					max = "Down ";
+					nMax = d;
+				}
+				moves += max;
+			}
+			if(i%2!=0){
+				//Finding min values when turn is odd
+
+				mL.moveLeft();
+				l = getHuristicScore(mL);
+
+				mR.moveRight();
+				r = getHuristicScore(mR);
+				if(r<l){
+					min = "Right ";
+					nMin = r;
+				}else{
+					min = "Left ";
+					nMin = l;
+				}
+
+				mU.moveUp();
+				u = getHuristicScore(mU);
+				if(u<nMin){
+					min = "Up ";
+					nMin = r;
+				}
+
+				mD.moveDown();
+				d = getHuristicScore(mD);
+				if(d<nMin){
+					min = "Down ";
+					nMin = d;
+				}
+				moves += min;
+			}
+
+
+			//resets boards so the 'winning' move is the new board that is tested
+			if(u == nMin || u == nMax){
+				m = new Move(mU.clone());
+			}if(d == nMin || d == nMax){
+				m = new Move(mD.clone());
+			}if(l == nMin || l == nMax){
+				m = new Move(mL.clone());
+			}if(r == nMin || r == nMax){
+				m = new Move(mR.clone());
+
+			}
+			game.drawBoard(mD);
+			i++;
+		}
+		return m;
 	}
 }

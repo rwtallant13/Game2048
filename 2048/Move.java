@@ -4,6 +4,7 @@ import java.util.*;
 public class Move {
 	private int[][] b = new int[4][4];
 	private int s = 0;
+	private boolean win = false;
 	
 	public Move(Move m){
 		b = m.getBoard();
@@ -68,6 +69,9 @@ public class Move {
 	public int getScore(){
 		return s;
 	}
+	public boolean isWon(){
+		return win;
+	}
 	public Move clone(){
 		int sS = s;
 		int[][] n = new int[4][4];
@@ -117,6 +121,9 @@ public class Move {
 					b[x][y+1]=0;
 					this.s+=b[x][y];
 				}
+				if (b[x][y]==2048){
+					win = true;
+				}
 			}
 		}
 		spawn(b);
@@ -141,6 +148,9 @@ public class Move {
 					b[x][y]+=b[x][y-1];
 					b[x][y-1]=0;
 					this.s+=b[x][y];
+				}
+				if(b[x][y] == 2048){
+					win = true;
 				}
 			}
 		}
@@ -167,6 +177,9 @@ public class Move {
 					b[x+1][y]=0;
 					this.s+=b[x][y];
 				}
+				if(b[x][y] == 2048){
+					win = true;
+				}
 			}
 		}
 		spawn(b);
@@ -191,6 +204,9 @@ public class Move {
 					b[x][y]+=b[x-1][y];
 					b[x-1][y]=0;
 					this.s+=b[x][y];
+				}
+				if(b[x][y] == 2048){
+					win = true;
 				}
 			}
 		}
