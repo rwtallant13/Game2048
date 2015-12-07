@@ -1,0 +1,15 @@
+import javax.swing.JFrame;
+import java.awt.*;
+public class Driver
+{
+	public static void main(String[] args)
+	{
+		JFrame frame= new JFrame("2048");
+      frame.setBackground(Color.gray.brighter());
+		frame.setSize(817, 915);
+		frame.setLocation(100,100);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setContentPane(new graphics());
+		frame.setVisible(true);
+	}
+}		
