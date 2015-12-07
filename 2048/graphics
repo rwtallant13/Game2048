@@ -1,0 +1,41 @@
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+
+public class graphics extends JPanel
+{
+   public graphics()
+   {
+      int delay=100;
+      ActionListener taskPerformer = new ActionListener()
+      {
+         public void actionPerformed(ActionEvent evt)
+         {
+            repaint();
+         }
+      };
+   new Timer(delay, taskPerformer).start();
+   }
+   public void paintComponent(Graphics g)
+   {
+      /*for(int a=0; a<=800; a+=200)
+      {
+         g.setColor(Color.orange);
+         g.fillRect(a,0,a,200);
+         g.fillRect(200,0,200,200);
+      }*/
+      for(int s=0; s<=800; s+=200)
+      {
+         g.setColor(Color.black);
+         g.drawLine(s,0,s,800);
+         g.drawLine(0,s,800,s);
+      }
+      g.setColor(Color.black);
+      g.drawLine(0,0,0,875);
+      g.drawLine(800,0,800,875);
+      g.drawLine(0,875,800,875);
+      Font arial= new Font("Arial", Font.BOLD, 20);
+      //String one=String.valueOf(b[0][0]);
+      //g.drawString(one, 50, 100);
+   }
+}
